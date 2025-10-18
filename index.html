@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>星云科技 - 企业官网</title>
+  <title>星云科技 - 蓝黑智算体验</title>
   <style>
     :root {
-      color-scheme: light;
-      --primary: #0046ff;
-      --primary-dark: #002dc8;
-      --accent: #08c6a2;
-      --text: #121826;
-      --muted: #6b7a99;
-      --bg: #f5f7fa;
-      --card: #ffffff;
+      color-scheme: dark;
+      --bg: #040810;
+      --bg-alt: #081225;
+      --bg-card: rgba(14, 24, 49, 0.78);
+      --bg-card-strong: rgba(19, 35, 74, 0.85);
+      --primary: #2f73ff;
+      --primary-dark: #0d1e3f;
+      --accent: #3bf0ff;
+      --accent-purple: #6b4dff;
+      --text: #e7eeff;
+      --muted: #8ea2c9;
+      --border: rgba(66, 108, 200, 0.34);
+      --glow: rgba(47, 115, 255, 0.45);
     }
 
     * {
@@ -23,10 +28,31 @@
     }
 
     body {
-      font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: "Inter", "JetBrains Mono", "Microsoft YaHei", sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -30%;
+      background: radial-gradient(circle at 12% 18%, rgba(59, 240, 255, 0.18), transparent 62%),
+        radial-gradient(circle at 82% 12%, rgba(107, 77, 255, 0.2), transparent 60%),
+        radial-gradient(circle at 50% 78%, rgba(47, 115, 255, 0.22), transparent 58%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(140deg, rgba(4, 8, 16, 0.9), rgba(4, 10, 20, 0.96));
+      z-index: -3;
     }
 
     img {
@@ -39,18 +65,23 @@
       text-decoration: none;
     }
 
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
     .container {
       width: min(1120px, 90%);
       margin: 0 auto;
     }
 
     header {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(12px);
+      background: rgba(6, 14, 34, 0.72);
+      backdrop-filter: blur(18px);
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid rgba(18, 24, 38, 0.06);
+      border-bottom: 1px solid var(--border);
     }
 
     .navbar {
@@ -66,7 +97,7 @@
       font-weight: 700;
       font-size: 1.2rem;
       gap: 10px;
-      color: var(--primary);
+      color: var(--text);
     }
 
     .brand-icon {
@@ -74,10 +105,11 @@
       place-items: center;
       width: 42px;
       height: 42px;
-      border-radius: 12px;
+      border-radius: 14px;
       background: linear-gradient(135deg, var(--primary), var(--accent));
       color: #fff;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      box-shadow: 0 10px 24px rgba(59, 240, 255, 0.25);
     }
 
     nav {
@@ -88,43 +120,130 @@
       color: var(--muted);
     }
 
+    nav a {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 -8px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(47, 115, 255, 0), rgba(47, 115, 255, 0.85), rgba(59, 240, 255, 0));
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
     nav a:hover {
-      color: var(--primary);
+      color: #fff;
+    }
+
+    nav a:hover::after {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .cta-button {
-      padding: 12px 24px;
+      padding: 12px 28px;
       border-radius: 999px;
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), #0d8bff);
       color: #fff;
       font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 12px 24px rgba(0, 70, 255, 0.18);
+      border: 1px solid rgba(47, 115, 255, 0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 20px 45px rgba(47, 115, 255, 0.35), 0 0 30px rgba(47, 115, 255, 0.25);
     }
 
     .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(0, 70, 255, 0.24);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 28px 60px rgba(59, 240, 255, 0.35), 0 0 40px rgba(47, 115, 255, 0.4);
+    }
+
+    .secondary-button {
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(59, 240, 255, 0.3);
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(8, 17, 32, 0.6);
+      transition: border 0.2s ease, background 0.2s ease;
+    }
+
+    .secondary-button:hover {
+      border-color: rgba(59, 240, 255, 0.6);
+      background: rgba(8, 24, 44, 0.9);
+    }
+
+    main > section {
+      margin-top: 110px;
     }
 
     .hero {
-      padding: 96px 0 64px;
+      padding: 120px 0 96px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       align-items: center;
-      gap: 48px;
+      gap: 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -30% -20% -40% 25%;
+      background: radial-gradient(circle at 20% 20%, rgba(47, 115, 255, 0.4), transparent 65%);
+      filter: blur(0);
+      opacity: 0.85;
+      z-index: -1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 20% -10% -10% 50%;
+      background: radial-gradient(circle at 60% 40%, rgba(107, 77, 255, 0.3), transparent 60%);
+      filter: blur(0);
+      z-index: -1;
     }
 
     .hero-copy h1 {
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
       font-weight: 800;
       margin-bottom: 20px;
+      letter-spacing: 0.02em;
     }
 
     .hero-copy p {
-      font-size: 1.06rem;
+      font-size: 1.08rem;
       color: var(--muted);
-      margin-bottom: 28px;
+      margin-bottom: 30px;
+      max-width: 520px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(59, 240, 255, 0.12);
+      border: 1px solid rgba(59, 240, 255, 0.3);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .badge::before {
+      content: "●";
+      font-size: 0.65rem;
+      color: rgba(59, 240, 255, 0.8);
     }
 
     .hero-actions {
@@ -132,63 +251,223 @@
       flex-wrap: wrap;
       gap: 16px;
       align-items: center;
+      margin-bottom: 34px;
     }
 
-    .secondary-button {
-      padding: 12px 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 70, 255, 0.24);
-      font-weight: 600;
-      color: var(--primary);
-      background: transparent;
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .metric {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(10, 22, 44, 0.66);
+      border: 1px solid rgba(47, 115, 255, 0.28);
+      display: grid;
+      gap: 6px;
+      box-shadow: inset 0 0 24px rgba(17, 35, 72, 0.45);
+    }
+
+    .metric strong {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .metric span {
+      font-size: 0.86rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
     }
 
     .hero-card {
-      background: linear-gradient(145deg, rgba(0, 70, 255, 0.18), rgba(8, 198, 162, 0.18));
-      border-radius: 28px;
-      padding: 32px;
+      background: linear-gradient(160deg, rgba(19, 37, 76, 0.95), rgba(10, 21, 44, 0.85));
+      border-radius: 30px;
+      padding: 40px;
       position: relative;
       overflow: hidden;
-      min-height: 320px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      border: 1px solid rgba(47, 115, 255, 0.35);
+      box-shadow: 0 30px 60px rgba(12, 26, 60, 0.65), 0 0 60px rgba(47, 115, 255, 0.32);
+      display: grid;
+      gap: 24px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(59, 240, 255, 0.3), transparent 70%);
+      top: -120px;
+      right: -120px;
+      filter: blur(2px);
+      animation: pulse 6s infinite linear;
     }
 
     .hero-card::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.55), transparent 48%);
-      pointer-events: none;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(107, 77, 255, 0.25), transparent 70%);
+      bottom: -160px;
+      left: -100px;
+      filter: blur(2px);
+      opacity: 0.7;
+      animation: pulse 7s infinite reverse linear;
     }
 
-    .hero-card h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 16px;
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-label {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(47, 115, 255, 0.18);
+      border: 1px solid rgba(47, 115, 255, 0.32);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .hero-card-chip {
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(107, 77, 255, 0.22);
+      border: 1px solid rgba(107, 77, 255, 0.32);
+      font-size: 0.82rem;
+      color: #dac7ff;
+      letter-spacing: 0.06em;
     }
 
     .hero-card p {
-      color: rgba(18, 24, 38, 0.72);
+      color: rgba(223, 236, 255, 0.88);
+      max-width: 320px;
+      position: relative;
+      z-index: 1;
     }
 
-    .highlight {
-      display: inline-flex;
+    .hero-card-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-list li {
+      display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(0, 70, 255, 0.1);
-      color: var(--primary);
+      gap: 12px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .hero-card-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 240, 255, 0.9), rgba(47, 115, 255, 0.2));
+      box-shadow: 0 0 12px rgba(59, 240, 255, 0.5);
+    }
+
+    .hero-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-footer strong {
+      font-size: 2rem;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hero-card-footer span {
+      font-size: 0.85rem;
+      color: rgba(231, 238, 255, 0.72);
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      opacity: 0.9;
+      filter: blur(0);
+      animation: drift 14s ease-in-out infinite;
+    }
+
+    .orb-one {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(59, 240, 255, 0.22), transparent 70%);
+      top: -120px;
+      left: -80px;
+      animation-delay: -2s;
+    }
+
+    .orb-two {
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(47, 115, 255, 0.26), transparent 70%);
+      bottom: -80px;
+      left: 40%;
+      animation-delay: -6s;
+    }
+
+    .orb-three {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(107, 77, 255, 0.2), transparent 70%);
+      top: -100px;
+      right: -120px;
+      animation-delay: -10s;
+    }
+
+    .clients {
+      background: rgba(8, 18, 38, 0.75);
+      border-radius: 24px;
+      padding: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 24px 48px rgba(8, 14, 32, 0.55);
+    }
+
+    .clients span {
       font-weight: 600;
-      margin-bottom: 20px;
+      color: rgba(223, 236, 255, 0.75);
+      letter-spacing: 0.04em;
+    }
+
+    .clients img {
+      opacity: 0.85;
+      filter: grayscale(30%);
     }
 
     .section-title {
       text-align: center;
       margin-bottom: 18px;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
       font-weight: 700;
     }
 
@@ -197,24 +476,8 @@
       color: var(--muted);
       margin-bottom: 48px;
       font-size: 1rem;
-    }
-
-    .clients {
-      background: #fff;
-      border-radius: 20px;
-      padding: 28px;
-      margin: 48px auto;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      box-shadow: 0 24px 48px rgba(18, 24, 38, 0.06);
-    }
-
-    .clients span {
-      font-weight: 600;
-      color: var(--muted);
+      max-width: 620px;
+      margin-inline: auto;
     }
 
     .features {
@@ -224,39 +487,40 @@
     }
 
     .feature-card {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(18, 24, 38, 0.05);
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 48px rgba(8, 12, 32, 0.55);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
+      backdrop-filter: blur(20px);
     }
 
     .feature-icon {
-      width: 56px;
-      height: 56px;
+      width: 60px;
+      height: 60px;
       border-radius: 16px;
       display: grid;
       place-items: center;
       font-size: 1.4rem;
       color: #fff;
-    }
-
-    .feature-card:nth-child(1) .feature-icon {
-      background: linear-gradient(135deg, #0046ff, #8a9bff);
+      background: linear-gradient(135deg, rgba(47, 115, 255, 0.9), rgba(59, 240, 255, 0.6));
+      box-shadow: 0 10px 30px rgba(47, 115, 255, 0.4);
     }
 
     .feature-card:nth-child(2) .feature-icon {
-      background: linear-gradient(135deg, #08c6a2, #3debbf);
+      background: linear-gradient(135deg, rgba(59, 240, 255, 0.9), rgba(107, 77, 255, 0.7));
     }
 
     .feature-card:nth-child(3) .feature-icon {
-      background: linear-gradient(135deg, #ff7a59, #ff9c8e);
+      background: linear-gradient(135deg, rgba(107, 77, 255, 0.85), rgba(47, 115, 255, 0.7));
     }
 
     .feature-card h3 {
-      font-size: 1.2rem;
+      font-size: 1.24rem;
+      font-weight: 600;
     }
 
     .feature-card p {
@@ -264,26 +528,124 @@
       font-size: 0.96rem;
     }
 
+    .modules {
+      position: relative;
+    }
+
+    .modules::before {
+      content: "";
+      position: absolute;
+      inset: 10% -20% auto;
+      height: 60%;
+      background: radial-gradient(circle at 50% 50%, rgba(47, 115, 255, 0.25), transparent 70%);
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .module-card {
+      background: var(--bg-card-strong);
+      border-radius: 26px;
+      padding: 28px;
+      border: 1px solid rgba(59, 240, 255, 0.28);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 20px 44px rgba(8, 16, 36, 0.6);
+    }
+
+    .module-card::after {
+      content: "";
+      position: absolute;
+      inset: -20% 40% auto -10%;
+      height: 120%;
+      background: linear-gradient(120deg, rgba(59, 240, 255, 0.18), transparent 60%);
+      opacity: 0.7;
+      transform: skewX(-10deg);
+    }
+
+    .module-tag {
+      width: fit-content;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(47, 115, 255, 0.16);
+      border: 1px solid rgba(47, 115, 255, 0.28);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(220, 235, 255, 0.8);
+    }
+
+    .module-card h3 {
+      font-size: 1.15rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-card p {
+      color: rgba(210, 226, 255, 0.75);
+      font-size: 0.94rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-meta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.6);
+      position: relative;
+      z-index: 1;
+    }
+
+    .module-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .module-meta span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: rgba(59, 240, 255, 0.6);
+      border-radius: 50%;
+    }
+
     .stats {
-      margin: 64px 0;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 24px;
+      margin: 72px 0;
     }
 
     .stat {
       padding: 32px;
       border-radius: 24px;
-      background: #fff;
+      background: rgba(10, 20, 40, 0.72);
+      border: 1px solid rgba(47, 115, 255, 0.28);
       text-align: center;
-      box-shadow: 0 20px 40px rgba(18, 24, 38, 0.05);
+      box-shadow: 0 24px 50px rgba(5, 12, 28, 0.6);
     }
 
     .stat strong {
       display: block;
       font-size: 2.2rem;
-      color: var(--primary);
+      color: var(--accent);
       margin-bottom: 8px;
+    }
+
+    .stat span {
+      color: rgba(222, 233, 255, 0.68);
+      font-size: 0.9rem;
     }
 
     .services {
@@ -293,52 +655,74 @@
     }
 
     .service-card {
-      background: linear-gradient(150deg, rgba(0, 70, 255, 0.08), rgba(8, 198, 162, 0.08));
-      border-radius: 24px;
+      background: linear-gradient(150deg, rgba(47, 115, 255, 0.16), rgba(59, 240, 255, 0.1));
+      border-radius: 26px;
       padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      min-height: 220px;
+      gap: 18px;
+      min-height: 230px;
+      border: 1px solid rgba(47, 115, 255, 0.28);
+      box-shadow: 0 22px 48px rgba(8, 16, 36, 0.55);
     }
 
     .service-card h3 {
-      font-size: 1.15rem;
+      font-size: 1.18rem;
+      font-weight: 600;
     }
 
     .service-card p {
       color: var(--muted);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
+      flex: 1;
     }
 
     .testimonials {
-      margin: 72px 0;
+      margin: 90px 0 30px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
     }
 
     .testimonial {
-      background: #fff;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(18, 24, 38, 0.05);
+      background: rgba(10, 22, 46, 0.82);
+      border-radius: 26px;
+      padding: 30px;
+      border: 1px solid rgba(107, 77, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(8, 16, 36, 0.55);
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 22px;
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
     }
 
-    .testimonial .author {
+    .testimonial::after {
+      content: "";
+      position: absolute;
+      inset: auto -30% -40% 40%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(59, 240, 255, 0.2), transparent 70%);
+      opacity: 0.7;
+    }
+
+    .testimonial p {
+      color: rgba(226, 236, 255, 0.86);
+      font-size: 0.98rem;
+    }
+
+    .author {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       color: #fff;
       display: grid;
       place-items: center;
@@ -350,40 +734,59 @@
     }
 
     .author span {
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-size: 0.88rem;
+      color: rgba(190, 208, 240, 0.7);
     }
 
     .cta-section {
-      margin: 96px 0;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      margin: 110px 0 70px;
+      background: radial-gradient(circle at 15% 20%, rgba(59, 240, 255, 0.25), transparent 70%),
+        radial-gradient(circle at 80% 30%, rgba(47, 115, 255, 0.4), transparent 65%),
+        linear-gradient(135deg, rgba(18, 42, 92, 0.92), rgba(8, 18, 40, 0.9));
       border-radius: 32px;
       color: #fff;
       padding: clamp(48px, 7vw, 72px);
       display: grid;
       gap: 24px;
       justify-items: start;
+      border: 1px solid rgba(59, 240, 255, 0.32);
+      box-shadow: 0 40px 80px rgba(5, 12, 28, 0.75), 0 0 80px rgba(47, 115, 255, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -140px;
+      bottom: -160px;
+      background: radial-gradient(circle, rgba(59, 240, 255, 0.28), transparent 70%);
+      filter: blur(4px);
+      opacity: 0.75;
     }
 
     .cta-section h2 {
-      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-size: clamp(2.1rem, 4vw, 3rem);
+      max-width: 520px;
     }
 
     .cta-section p {
-      max-width: 520px;
-      color: rgba(255, 255, 255, 0.84);
+      max-width: 560px;
+      color: rgba(223, 236, 255, 0.85);
     }
 
     footer {
-      padding: 48px 0 32px;
-      background: #0f172a;
-      color: rgba(255, 255, 255, 0.76);
+      padding: 54px 0 36px;
+      background: #03060d;
+      border-top: 1px solid rgba(47, 115, 255, 0.22);
     }
 
     .footer-grid {
       display: grid;
       gap: 32px;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
     .footer-brand {
@@ -393,26 +796,39 @@
     }
 
     .footer-brand .brand-icon {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(59, 240, 255, 0.18);
+      box-shadow: 0 12px 28px rgba(59, 240, 255, 0.25);
+    }
+
+    .footer-brand p {
+      color: rgba(200, 214, 238, 0.72);
+      font-size: 0.94rem;
     }
 
     .footer-links {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       font-size: 0.95rem;
+      color: rgba(206, 220, 244, 0.72);
+    }
+
+    .footer-links strong {
+      color: rgba(233, 240, 255, 0.88);
+      font-weight: 600;
     }
 
     .footer-bottom {
-      margin-top: 32px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 34px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       padding-top: 24px;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 12px;
       justify-content: space-between;
+      color: rgba(162, 182, 218, 0.6);
     }
 
     .socials {
@@ -421,14 +837,63 @@
     }
 
     .socials a {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(8, 20, 44, 0.7);
       color: #fff;
       font-size: 0.9rem;
+      border: 1px solid rgba(59, 240, 255, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .socials a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(47, 115, 255, 0.35);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.08) rotate(12deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      50% {
+        transform: translate3d(20px, 30px, 0) scale(1.05);
+      }
+      100% {
+        transform: translate3d(-10px, 10px, 0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        padding-top: 96px;
+      }
     }
 
     @media (max-width: 768px) {
@@ -436,8 +901,37 @@
         display: none;
       }
 
-      .cta-section {
-        justify-items: stretch;
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .clients {
+        justify-content: center;
+      }
+
+      .hero::before,
+      .hero::after {
+        inset: -20% -30% -20% -30%;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .cta-button,
+      .secondary-button {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .clients {
+        padding: 22px;
       }
     }
   </style>
@@ -452,147 +946,206 @@
       <nav>
         <a href="#about">关于我们</a>
         <a href="#services">解决方案</a>
-        <a href="#cases">客户案例</a>
-        <a href="#contact">联系我们</a>
+        <a href="#cases">进阶成果</a>
+        <a href="#contact">未来合作</a>
       </nav>
-      <a class="cta-button" href="#contact">预约演示</a>
+      <a class="cta-button" href="#contact">预约沉浸演示</a>
     </div>
   </header>
 
   <main>
     <section class="container hero" id="about">
+      <span class="glow-orb orb-one"></span>
+      <span class="glow-orb orb-two"></span>
+      <span class="glow-orb orb-three"></span>
       <div class="hero-copy">
-        <div class="highlight">用数字化赋能企业增长</div>
-        <h1>打造高效可持续的企业数字化运营平台</h1>
-        <p>星云科技为成长型企业提供从战略咨询、系统落地到数据中台构建的一体化解决方案，助力企业实现业务敏捷、效率提升与增长突破。</p>
+        <div class="badge">Nebula Engine 5.0 发布</div>
+        <h1>点燃蓝黑超感知时代的企业智算引擎</h1>
+        <p>星云科技以数字孪生、AI Agent 与实时数据中枢构筑未来企业操作系统，助力组织突破增长天花板，在复杂多变的商业宇宙中保持极致敏捷。</p>
         <div class="hero-actions">
-          <a class="cta-button" href="#contact">获取定制方案</a>
-          <a class="secondary-button" href="#services">查看服务</a>
+          <a class="cta-button" href="#services">探索能力矩阵</a>
+          <a class="secondary-button" href="#cases">观看成功案例</a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <strong>0.02s</strong>
+            <span>AI 决策响应</span>
+          </div>
+          <div class="metric">
+            <strong>+187%</strong>
+            <span>运营效率提升</span>
+          </div>
+          <div class="metric">
+            <strong>99.98%</strong>
+            <span>核心系统可用性</span>
+          </div>
         </div>
       </div>
       <div class="hero-card">
-        <div>
-          <h2>企业数字化指标看板</h2>
-          <p>实时汇总销售、运营与客户数据，通过AI预测模型辅助决策，帮助管理层快速掌握业务脉搏。</p>
+        <div class="hero-card-header">
+          <span class="hero-card-label">Nebula Synapse</span>
+          <span class="hero-card-chip">实时仿生中枢</span>
         </div>
-        <div class="stats" style="margin: 28px 0 0; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;">
-          <div class="stat" style="padding: 20px 16px; box-shadow: none; background: rgba(255,255,255,0.6);">
-            <strong>98%</strong>
-            <span>客户满意度</span>
-          </div>
-          <div class="stat" style="padding: 20px 16px; box-shadow: none; background: rgba(255,255,255,0.6);">
-            <strong>3倍</strong>
-            <span>销售增长速度</span>
-          </div>
+        <p>面向成长型企业打造的全域数字指挥舱，将战略、流程与智能代理无缝连接，纵深驱动数据价值释放。</p>
+        <ul class="hero-card-list">
+          <li>跨端统一的运营时空透视</li>
+          <li>自适应流程与协同 Agents 网络</li>
+          <li>行业级语义模型一键启用</li>
+        </ul>
+        <div class="hero-card-footer">
+          <strong>300+</strong>
+          <span>预构建行业超级场景</span>
         </div>
       </div>
     </section>
 
     <section class="container clients">
-      <span>信任我们的合作伙伴：</span>
-      <img src="https://dummyimage.com/120x40/ccd5f6/1b2a4a&text=Bright+Lab" alt="Bright Lab">
-      <img src="https://dummyimage.com/120x40/ccd5f6/1b2a4a&text=Futurehub" alt="Futurehub">
-      <img src="https://dummyimage.com/120x40/ccd5f6/1b2a4a&text=NovaGroup" alt="Nova Group">
-      <img src="https://dummyimage.com/120x40/ccd5f6/1b2a4a&text=Insight+AI" alt="Insight AI">
-      <img src="https://dummyimage.com/120x40/ccd5f6/1b2a4a&text=Cloudify" alt="Cloudify">
+      <span>与全球前瞻企业并肩共创：</span>
+      <img src="https://dummyimage.com/120x40/1e2d50/7f9beb&text=VERTEX" alt="Vertex">
+      <img src="https://dummyimage.com/120x40/1e2d50/7f9beb&text=CYBERDYNE" alt="Cyberdyne">
+      <img src="https://dummyimage.com/120x40/1e2d50/7f9beb&text=SKYLINE" alt="Skyline">
+      <img src="https://dummyimage.com/120x40/1e2d50/7f9beb&text=QUANT" alt="Quant">
+      <img src="https://dummyimage.com/120x40/1e2d50/7f9beb&text=ION+LAB" alt="Ion Lab">
     </section>
 
     <section class="container" id="services">
-      <h2 class="section-title">核心能力</h2>
-      <p class="section-subtitle">聚焦战略咨询、系统建设与数据赋能三大板块，全面支持企业数字化转型。</p>
+      <h2 class="section-title">数智引擎的核心驱动</h2>
+      <p class="section-subtitle">覆盖战略诊断、智能流程、AI 数据中台三大层级，打造「战略-执行-增长」闭环，释放企业蓝黑动能。</p>
       <div class="features">
         <div class="feature-card">
-          <div class="feature-icon">📈</div>
-          <h3>数字化战略规划</h3>
-          <p>从现状诊断到落地规划，帮助企业构建可执行的数字化路线图，确保投入与产出的最大化。</p>
+          <div class="feature-icon">🧠</div>
+          <h3>全域战略导航系统</h3>
+          <p>以数字孪生镜像企业业务，联动行业趋势模型与实时运营指标，描绘动态可执行的增长地图。</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔗</div>
-          <h3>业务系统集成</h3>
-          <p>提供CRM、ERP、MES等系统集成服务，打通业务流程，实现跨部门协同与数据共享。</p>
+          <div class="feature-icon">⚡️</div>
+          <h3>流程原子化引擎</h3>
+          <p>将跨部门流程拆解为可自适应的原子模块，通过智能编排驱动效率倍增与体验升级。</p>
         </div>
         <div class="feature-card">
-          <div 
-class="feature-icon">💡</div>
-          <h3>AI与数据中台</h3>
-          <p>构建统一数据中台，搭配AI算法模型，支持市场洞察、精准营销与智能运维。</p>
+          <div class="feature-icon">🌌</div>
+          <h3>AI 多智能体协同</h3>
+          <p>搭建企业专属 Agent 群集，实现数据采集、洞察、执行闭环，打造 7x24 小时的智算指挥体系。</p>
         </div>
+      </div>
+    </section>
+
+    <section class="container modules">
+      <h2 class="section-title">蓝黑引擎能力矩阵</h2>
+      <p class="section-subtitle">以模块化组合方式匹配不同增长阶段，随需激活营销、供应链、服务与治理等关键战场。</p>
+      <div class="modules-grid">
+        <article class="module-card">
+          <span class="module-tag">growth orbit</span>
+          <h3>全链路增长神经</h3>
+          <p>沉淀用户旅程与智能触点，实现秒级洞察与千人千面的体验编排，让营销与销售协同一体化。</p>
+          <div class="module-meta">
+            <span>预测转化模型</span>
+            <span>跨渠道闭环追踪</span>
+          </div>
+        </article>
+        <article class="module-card">
+          <span class="module-tag">supply core</span>
+          <h3>智能供应协同中枢</h3>
+          <p>打通计划、采购、制造与履约，全链实时监测与自适应调度，降低 35% 运营波动。</p>
+          <div class="module-meta">
+            <span>双向可见库存</span>
+            <span>实时风险预警</span>
+          </div>
+        </article>
+        <article class="module-card">
+          <span class="module-tag">service mesh</span>
+          <h3>服务体验超链接</h3>
+          <p>以客户数字画像驱动 AI Agent，提供即时协同支撑，使客户满意度跃升至行业前 5%。</p>
+          <div class="module-meta">
+            <span>智能派单</span>
+            <span>体验评分闭环</span>
+          </div>
+        </article>
+        <article class="module-card">
+          <span class="module-tag">governance</span>
+          <h3>数据治理黑匣</h3>
+          <p>统一数据资产、权限与合规策略，确保业务创新与安全控制同频推进，构建可信赖的数智底座。</p>
+          <div class="module-meta">
+            <span>零信任框架</span>
+            <span>可追溯数据谱系</span>
+          </div>
+        </article>
       </div>
     </section>
 
     <section class="container stats" id="cases">
       <div class="stat">
-        <strong>350+</strong>
-        <span>服务企业客户</span>
+        <strong>420+</strong>
+        <span>深度合作企业集群</span>
       </div>
       <div class="stat">
-        <strong>120%</strong>
-        <span>客户ROI平均提升</span>
+        <strong>3.6×</strong>
+        <span>平均业务增长加速度</span>
       </div>
       <div class="stat">
         <strong>24/7</strong>
-        <span>专家运维支持</span>
+        <span>智算指挥中心运营</span>
       </div>
       <div class="stat">
-        <strong>6周</strong>
-        <span>最快项目交付周期</span>
+        <strong>6 周</strong>
+        <span>最快完成蓝黑落地</span>
       </div>
     </section>
 
     <section class="container services">
       <div class="service-card">
-        <h3>数字化咨询与评估</h3>
-        <p>深入企业业务与IT现状，制定可落地的数字化战略，并提供全方位评估报告与实施建议。</p>
+        <h3>蓝黑战略共创</h3>
+        <p>联合高层共建未来愿景、业务蓝图与指标体系，以数据驱动的战略沙盘开启下一增长维度。</p>
         <a class="secondary-button" href="#contact" style="width: fit-content;">预约顾问</a>
       </div>
       <div class="service-card">
-        <h3>定制化平台交付</h3>
-        <p>联合业务团队开展敏捷迭代，交付覆盖销售、生产、服务等环节的定制化数字化平台。</p>
+        <h3>自进化平台交付</h3>
+        <p>敏捷迭代业务场景，打造可持续扩展的中台与前台，一体化连接销售、制造、运营全链条。</p>
         <a class="secondary-button" href="#contact" style="width: fit-content;">获取方案</a>
       </div>
       <div class="service-card">
-        <h3>运营与数据托管</h3>
-        <p>提供持续的系统运维、数据治理与分析服务，保障业务持续优化与价值沉淀。</p>
+        <h3>智算运营托管</h3>
+        <p>提供 7x24 AI 运维、数据治理与业务优化服务，确保蓝黑引擎持续升级、价值不断放大。</p>
         <a class="secondary-button" href="#contact" style="width: fit-content;">立即咨询</a>
       </div>
     </section>
 
     <section class="container testimonials">
       <div class="testimonial">
-        <p>星云科技的团队帮助我们在短短两个月内完成CRM系统上线，业务团队的工作效率提升了40%，客户满意度也随之提高。</p>
+        <p>“星云科技帮助我们在 8 周内构建跨区域运营指挥舱，预测模型令补货准确率提高 42%，新零售体系真正进入实时决策时代。”</p>
         <div class="author">
           <div class="avatar">王</div>
           <div>
-            <strong>王倩</strong>
-            <span>华辰集团 客户成功总监</span>
+            <strong>王浚</strong>
+            <span>启曜零售 CEO</span>
           </div>
         </div>
       </div>
       <div class="testimonial">
-        <p>他们的数据中台方案让我们实现了跨区域门店的统一管理，经营决策速度大幅提升，是我们可信赖的长期合作伙伴。</p>
-        <div class="author">
-          <div class="avatar">李</div>
-          <div>
-            <strong>李明</strong>
-            <span>浩程零售 CTO</span>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <p>从战略规划到系统交付，星云科技提供的解决方案全面而高效，帮助我们构建了面向未来的数字底座。</p>
+        <p>“蓝黑引擎把我们散落的流程原子化，用 AI Agent 将工程、项目与服务端打通，项目交付周期压缩了近一半。”</p>
         <div class="author">
           <div class="avatar">陈</div>
           <div>
-            <strong>陈雪</strong>
-            <span>启航制造 CEO</span>
+            <strong>陈意</strong>
+            <span>浩源能源 CTO</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>“从战略共创到运营托管，星云科技让我们的全球业务保持一致性与可控性，企业决策效率跃升到了一个全新高度。”</p>
+        <div class="author">
+          <div class="avatar">李</div>
+          <div>
+            <strong>李燃</strong>
+            <span>兆辰制造 首席数字官</span>
           </div>
         </div>
       </div>
     </section>
 
     <section class="container cta-section" id="contact">
-      <h2>开启企业数字化升级新阶段</h2>
-      <p>告诉我们您的业务目标，我们的专家团队将提供免费的诊断服务与专属增长方案。无论是数字化转型、流程优化还是数据治理，我们都能助您一步到位。</p>
+      <h2>启动您的蓝黑智算旅程</h2>
+      <p>告诉我们企业的目标、行业与挑战，星云智算团队将为您定制沉浸式诊断与蓝图工作坊，共同开启下一阶段的突破增长。</p>
       <a class="cta-button" href="mailto:hello@nebula-tech.com">hello@nebula-tech.com</a>
     </section>
   </main>
@@ -605,7 +1158,7 @@ class="feature-icon">💡</div>
             <span class="brand-icon">Σ</span>
             星云科技
           </div>
-          <p>为企业提供可持续的数字化增长引擎，连接战略与执行，让业务更敏捷、管理更高效。</p>
+          <p>以蓝黑智算驱动企业跃迁，连接战略与执行、数据与价值，打造通往未来的智能增长飞轮。</p>
           <div class="socials">
             <a href="#" aria-label="WeChat">微</a>
             <a href="#" aria-label="LinkedIn">领</a>
@@ -614,21 +1167,21 @@ class="feature-icon">💡</div>
         </div>
         <div class="footer-links">
           <strong>解决方案</strong>
-          <a href="#services">智慧制造</a>
-          <a href="#services">数字营销</a>
-          <a href="#services">企业运营中台</a>
+          <a href="#services">星云蓝黑引擎</a>
+          <a href="#services">工业智造矩阵</a>
+          <a href="#services">客户体验星链</a>
         </div>
         <div class="footer-links">
           <strong>资源中心</strong>
-          <a href="#cases">客户案例</a>
+          <a href="#cases">进阶实践</a>
           <a href="#">白皮书下载</a>
-          <a href="#">行业洞察</a>
+          <a href="#">趋势洞察</a>
         </div>
         <div class="footer-links">
           <strong>联系我们</strong>
           <a href="tel:+861012345678">热线：010-1234-5678</a>
           <a href="mailto:hello@nebula-tech.com">邮箱：hello@nebula-tech.com</a>
-          <a href="#">地址：北京市朝阳区银河科技园</a>
+          <a href="#">地址：北京市朝阳区星云数创中心</a>
         </div>
       </div>
       <div class="footer-bottom">
